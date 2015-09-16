@@ -1,7 +1,7 @@
 assetic:
     debug:          %kernel.debug%
     use_controller: %kernel.debug%
-    
+
     # Web directory, default shown web
     read_from:      %web_directory%
     write_to:       %web_directory%
