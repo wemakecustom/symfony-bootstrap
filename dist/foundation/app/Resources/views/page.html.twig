@@ -86,29 +86,30 @@
 {%- block body %}
 
     {%- block header_block %}
-    <header id="header" class="container-fluid" role="banner">
+    <header id="header" class="row" role="banner">
         {% block header_content %}{% endblock %}
     </header>
     {%- endblock %}
 
     {%- block session_flash_block %}
-    <div id="session-flash" class="alert-container container-fluid">
+    <div id="session-flash" class="row alert-box" data-alert>
         {%- block flash_alerts %}
             {%- if app.session.flashbag.peekAll|length > 0 %}
                 {% if app.debug %}{% include '::debug-flash.html.twig' %}{% endif %}
+                <a href="#" class="close">&times;</a>
             {%- endif -%}
         {%- endblock %}
     </div>
     {% endblock -%}
 
     {% block content_block -%}
-    <section id="content" class="container-fluid">
+    <section id="content" class="row">
         {% block content %}
 
             {%- block main %}{% endblock %}
 
             {%- block sidebar_block %}
-            <aside id="sidebar" class="col-md-3 clearfix">
+            <aside id="sidebar" class="small-12 medium-3 columns">
                 {% block sidebar_content %}{% endblock %}
             </aside>
             {%- endblock %}
@@ -118,7 +119,7 @@
     {%- endblock content_block %}
 
     {% block footer_block -%}
-    <footer id="footer" class="container-fluid" >
+    <footer id="footer" class="row" >
         {% block footer_content %}{% endblock %}
     </footer>
     {%- endblock footer_block %}
