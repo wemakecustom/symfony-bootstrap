@@ -1,0 +1,17 @@
+// CSS for print
+
+@import 'imports';
+
+
+@media print {
+    body {
+        margin:0;
+        padding:0;
+        font: 13px sans-serif;
+        color: #000;
+    }
+
+    @page {
+        margin: 10% 5%;
+    }
+}

@@ -1,0 +1,127 @@
+{% extends "::base.auto.twig" %}
+
+{%- block head_style %}
+
+    <!-- stylesheets -->
+    {%- stylesheets
+        'font-awesome/css/font-awesome.min.css'
+        output='assets/css/libs.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {%- endstylesheets %}
+
+    {%- stylesheets
+        'bundles/app/scss/common.scss'
+        'bundles/app/scss/layout.scss'
+        output='assets/css/global.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}">
+    {%- endstylesheets %}
+
+    {%- stylesheets
+        'bundles/app/scss/print.scss'
+        output='assets/css/print.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="print">
+    {%- endstylesheets %}
+
+    <!--[if lte IE 8]>
+    {%- stylesheets
+        'bundles/app/scss/ie.scss'
+        output='assets/css/ie8.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css">
+    {%- endstylesheets %}
+    <![endif]-->
+
+{%- endblock head_style %}
+
+{%- block head_script %}
+
+    <!-- script -->
+    {%- javascripts
+        'assets/js/routes.js'
+        'bundles/app/js/*'
+        output='assets/js/global.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {%- endjavascripts %}
+
+    <!--[if lte IE 8]>
+    {%- javascripts
+        'components/html5shiv/dist/html5shiv.js'
+        output='assets/js/ie8.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {%- endjavascripts %}
+    <script src="{{ app.request.baseURL }}/components/respond/respond.min.js?{{ assets_version() }}"></script>
+    <link href="{{ asset('components/respond/cross-domain/respond-proxy.html')|replace({("?" ~ assets_version()): ""}) }}" id="respond-proxy" rel="respond-proxy">
+    <link href="{{ app.request.baseURL }}/components/respond/cross-domain/respond.proxy.gif?{{ assets_version() }}" id="respond-redirect" rel="respond-redirect">
+    <script src="{{ app.request.baseURL }}/components/respond/cross-domain/respond.proxy.js?{{ assets_version() }}"></script>
+    <![endif]-->
+
+{%- endblock head_script %}
+
+{%- block foot_script %}
+
+    <!-- scripts -->
+    {%- javascripts
+        'components/jquery/jquery.js'
+        'components/jquery/jquery-migrate.js'
+        'components/console-polyfill/index.js'
+        'components/underscore/underscore-min.js'
+        'components/foundation/js/foundation.min.js'
+        debug=false
+        output='assets/js/libs.js'
+    %}
+    <script src="{{ asset_url }}"></script>
+    {%- endjavascripts %}
+
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
+
+{%- endblock foot_script %}
+
+
+{%- block body %}
+
+    {%- block header_block %}
+    <header id="header" class="row" role="banner">
+        {% block header_content %}{% endblock %}
+    </header>
+    {%- endblock %}
+
+    {%- block session_flash_block %}
+    <div id="session-flash" class="row alert-box" data-alert>
+        {%- block flash_alerts %}
+            {%- if app.session.flashbag.peekAll|length > 0 %}
+                {% if app.debug %}{% include '::debug-flash.html.twig' %}{% endif %}
+                <a href="#" class="close">&times;</a>
+            {%- endif -%}
+        {%- endblock %}
+    </div>
+    {% endblock -%}
+
+    {% block content_block -%}
+    <section id="content" class="row">
+        {% block content %}
+
+            {%- block main %}{% endblock %}
+
+            {%- block sidebar_block %}
+            <aside id="sidebar" class="small-12 medium-3 columns">
+                {% block sidebar_content %}{% endblock %}
+            </aside>
+            {%- endblock %}
+
+        {% endblock %}
+    </section>
+    {%- endblock content_block %}
+
+    {% block footer_block -%}
+    <footer id="footer" class="row" >
+        {% block footer_content %}{% endblock %}
+    </footer>
+    {%- endblock footer_block %}
+
+{%- endblock body %}
