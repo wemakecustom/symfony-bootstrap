@@ -1,0 +1,14 @@
+{
+    "name": "wmc/app",
+    "dependencies": {
+        "jquery": "^2.0",
+        "jquery-migrate": "*",
+        "console-polyfill": "*",
+        "underscore": "~1.8",
+
+        "foundation": "~5.4.7",
+        "font-awesome": "*",
+        "html5shiv": "*",
+        "respond": "*"
+    }
+}

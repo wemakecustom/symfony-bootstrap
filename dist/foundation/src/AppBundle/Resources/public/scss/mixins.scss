@@ -1,0 +1,104 @@
+// All Mixins
+// This SCSS must output nothing
+
+@mixin css3-prefix($property, $value) {
+    -webkit-#{$property}: #{$value};  // for webkit (Chrome, Safari, Android...)
+     -khtml-#{$property}: #{$value};  // for KHTML (Konqueror)
+       -moz-#{$property}: #{$value};  // for gecko (Mozilla)
+        -ms-#{$property}: #{$value};  // for microsoft (Internet Explorer)
+         -o-#{$property}: #{$value};  // for opera
+            #{$property}: #{$value};
+}
+
+@mixin background-gradient($startColor: #3C3C3C, $endColor: #999999) {
+    background-color: $startColor;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($startColor), to($endColor));
+    background-image: -webkit-linear-gradient(top, $startColor, $endColor);
+    background-image:    -moz-linear-gradient(top, $startColor, $endColor);
+    background-image:     -ms-linear-gradient(top, $startColor, $endColor);
+    background-image:      -o-linear-gradient(top, $startColor, $endColor);
+    background-image:         linear-gradient(top, $startColor, $endColor);
+    filter:           progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$startColor}', endColorStr='#{$endColor}');
+}
+
+@mixin background-size($width: 100%, $height: $width) {
+    @if type-of($width) == 'number' and $height != null {
+        @include css3-prefix('background-size', $width $height);
+    } @else {
+        @include css3-prefix('background-size', $width);
+    }
+}
+
+@mixin background-opacity($color: #000, $opacity: 0.85) {
+    background: $color;
+    background: rgba($color, $opacity);
+}
+
+@mixin border-radius($radius: 5px) {
+    @include css3-prefix('border-radius', $radius);
+}
+
+@mixin box-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4), $inset: "") {
+    @if ($inset != "") {
+        @include css3-prefix('box-shadow', $inset $x $y $blur $color);
+    } @else {
+        @include css3-prefix('box-shadow', $x $y $blur $color);
+    }
+}
+
+@mixin box-sizing($str) {
+    @include css3-prefix('box-sizing', $str);
+}
+
+@mixin columns($count: 3, $gap: 10) {
+    @include css3-prefix('column-count', $count);
+    @include css3-prefix('column-gap', $gap);
+}
+
+@mixin opacity($opacity: 0.5) {
+    $opacityMultiplied: ($opacity * 100);
+    filter:         alpha(opacity=$opacityMultiplied);
+    -ms-filter:     "progid:DXImageTransform.Microsoft.Alpha(Opacity=" + $opacityMultiplied + ")";
+    @include css3-prefix('opacity', $opacity);
+}
+
+@mixin resize($direction: both) {
+    @include css3-prefix('resize', $direction);
+}
+
+@mixin rotate($deg: 0) {
+    @include css3-prefix('transform', rotate($deg + deg));
+}
+
+@mixin text-shadow($x: 2px, $y: 2px, $blur: 5px, $color: rgba(0,0,0,.4)) {
+    text-shadow: $x $y $blur $color;
+}
+
+@mixin transform($params) {
+    @include css3-prefix('transform', $params);
+}
+
+@mixin transition($properties) {
+    @if length($properties) >= 1 {
+        @include css3-prefix('transition', $properties);
+    }
+    @else {
+        @include css3-prefix('transition',  "all 0.2s ease-in-out 0s");
+    }
+}
+
+@mixin animation($str) {
+    @include css3-prefix('animation', $str);
+}
+
+@mixin flex-container() {
+      -webkit-box-align: center;
+    -webkit-align-items: center;
+        -ms-align-items: center;
+         -ms-flex-align: center;
+            align-items: center;
+    display:        -webkit-box;
+    display:        -webkit-flex;
+    display:        -ms-flexbox;
+    display:        flex;
+}
